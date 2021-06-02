@@ -164,6 +164,7 @@ export default class ResultsViewMutationMapper extends MutationMapper<
                 existsSomeMutationWithAscnProperty={
                     this.props.existsSomeMutationWithAscnProperty
                 }
+                clinicalAttributes={this.props.store.clinicalAttributes}
             />
         );
     }

@@ -3432,6 +3432,7 @@ export class ResultsViewPageStore {
             this.uniqueSampleKeyToTumorType.result!,
             this.generateGenomeNexusHgvsgUrl,
             this.clinicalDataGroupedBySampleMap,
+            this.clinicalAttributes,
             this.genomeNexusClient,
             this.genomeNexusInternalClient,
             () => this.urlWrapper.query.mutations_transcript_id

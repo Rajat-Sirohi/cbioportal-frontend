@@ -130,9 +130,11 @@ export interface IMutationTableProps {
     onRowMouseLeave?: (d: Mutation[]) => void;
     generateGenomeNexusHgvsgUrl: (hgvsg: string) => string;
     sampleIdToClinicalDataMap?: MobxPromise<{ [x: string]: ClinicalData[] }>;
+    clinicalAttributes?: MobxPromise<ExtendedClinicalAttribute[]>;
 }
 import MobxPromise from 'mobxpromise';
 import AppConfig from 'appConfig';
+import { ExtendedClinicalAttribute } from 'pages/resultsView/ResultsViewPageStoreUtils';
 
 export enum MutationTableColumnType {
     DUMMY,
@@ -290,9 +292,13 @@ export default class MutationTable<
     }
 
     protected dummyRenderFunction(d: Mutation[]) {
-        let map = this.props.sampleIdToClinicalDataMap.result;
-        let wg = map[d[0].sampleId];
-        console.log(map);
+        if (
+            !this.props.clinicalAttributes ||
+            this.props.clinicalAttributes.isPending
+        ) {
+            return <h3>asdas</h3>;
+        }
+        console.log(this.props.clinicalAttributes.result);
         return <h3>{d[0].sampleId}</h3>;
     }
 
@@ -1212,6 +1218,12 @@ export default class MutationTable<
     }
 
     public render() {
+        if (
+            !this.props.clinicalAttributes ||
+            this.props.clinicalAttributes.isPending
+        ) {
+            return <div></div>;
+        }
         return (
             <MutationTableComponent
                 ref={this.tableRef}
