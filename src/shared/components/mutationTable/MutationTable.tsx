@@ -135,6 +135,7 @@ import MobxPromise from 'mobxpromise';
 import AppConfig from 'appConfig';
 
 export enum MutationTableColumnType {
+    DUMMY,
     STUDY,
     SAMPLE_ID,
     SAMPLES,
@@ -288,8 +289,28 @@ export default class MutationTable<
         return 'Unknown';
     }
 
+    protected dummyRenderFunction(d: Mutation[]) {
+        let map = this.props.sampleIdToClinicalDataMap.result;
+        let wg = map[d[0].sampleId];
+        console.log(map);
+        return <h3>{d[0].sampleId}</h3>;
+    }
+
     protected generateColumns() {
         this._columns = {};
+
+        this._columns[MutationTableColumnType.DUMMY] = {
+            name: 'Dummy',
+            render: (d: Mutation[]) => this.dummyRenderFunction(d),
+            download: SampleColumnFormatter.getTextValue,
+            sortBy: SampleColumnFormatter.getTextValue,
+            filter: (
+                d: Mutation[],
+                filterString: string,
+                filterStringUpper: string
+            ) => defaultFilter(d, 'sampleId', filterStringUpper),
+            visible: true,
+        };
 
         this._columns[MutationTableColumnType.STUDY] = {
             name: 'Study',

@@ -24,6 +24,7 @@ export default class ResultsViewMutationTable extends MutationTable<
     public static defaultProps = {
         ...MutationTable.defaultProps,
         columns: [
+            MutationTableColumnType.DUMMY,
             MutationTableColumnType.STUDY,
             MutationTableColumnType.SAMPLE_ID,
             MutationTableColumnType.COPY_NUM,
@@ -96,7 +97,8 @@ export default class ResultsViewMutationTable extends MutationTable<
             this.props.isCanonicalTranscript === false;
 
         // order columns
-        this._columns[MutationTableColumnType.STUDY].order = 0;
+        this._columns[MutationTableColumnType.DUMMY].order = 0;
+        this._columns[MutationTableColumnType.STUDY].order = 1;
         this._columns[MutationTableColumnType.SAMPLE_ID].order = 10;
         this._columns[MutationTableColumnType.CANCER_TYPE].order = 15;
         this._columns[MutationTableColumnType.PROTEIN_CHANGE].order = 20;
