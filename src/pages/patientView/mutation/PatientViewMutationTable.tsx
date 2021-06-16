@@ -100,7 +100,7 @@ export default class PatientViewMutationTable extends MutationTable<
         super.generateColumns();
 
         this._columns[MutationTableColumnType.TUMOR_ALLELE_FREQ] = {
-            name: 'Allele Freq',
+            name: MutationTableColumnType.TUMOR_ALLELE_FREQ,
             render: (d: Mutation[]) =>
                 AlleleFreqColumnFormatter.renderFunction(
                     d,
@@ -123,7 +123,7 @@ export default class PatientViewMutationTable extends MutationTable<
         };
 
         this._columns[MutationTableColumnType.SAMPLES] = {
-            name: 'Samples',
+            name: MutationTableColumnType.SAMPLES,
             render: (d: Mutation[]) =>
                 TumorColumnFormatter.renderFunction(
                     d,
@@ -148,7 +148,7 @@ export default class PatientViewMutationTable extends MutationTable<
         });
 
         this._columns[MutationTableColumnType.GENE_PANEL] = {
-            name: 'Gene panel',
+            name: MutationTableColumnType.GENE_PANEL,
             render: (d: Mutation[]) =>
                 PanelColumnFormatter.renderFunction(GenePanelProps(d)),
             download: (d: Mutation[]) =>
